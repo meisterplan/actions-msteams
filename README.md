@@ -2,6 +2,10 @@
 
 This action allows sending messages to Microsoft Teams Teams.
 
+## Build
+
+After changing the action's code, the action must be rebuilt and packaged via `yarn all` and the changes in the `dist` folder must be commited.
+
 ## Usage
 
 ### Pre-requisites
@@ -27,12 +31,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-
       - name: Send Message
         id: send-message
         uses: meisterplan/actions-msteams@v1
         with:
           title: Hello # optional
-          body: This is a test message
+          color: '#01A6F0' #optional
+          body: |
+            This is a test message
+            with *markdown*
+            and multiple lines
           webhook: ${{ secrets.MY_SECRET_WEBHOOK_URL }}
 ```

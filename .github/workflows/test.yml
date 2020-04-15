@@ -1,0 +1,16 @@
+on: push
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+    if: 'false'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Send test message
+        uses: ./
+        with:
+          color: '#01A6F0'
+          body: |
+            Test
+            # multiline 🦙
+          webhook: https://outlook.office.com/webhook/404e6c53-a391-429d-9d57-8b1eb679f537@59d8fb6f-d8ec-45fc-bf5d-df045f927658/IncomingWebhook/82282df6e0654bf3b71ab370e62362fc/376e26a9-2238-49e1-abf9-805e85a6e90f

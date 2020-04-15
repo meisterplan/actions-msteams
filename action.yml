@@ -1,0 +1,22 @@
+name: 'Microsoft Teams'
+description: 'Send messages to Microsoft Teams'
+author: itdesign GmbH
+inputs:
+  title:
+    description: 'Message Title'
+    required: false
+  color:
+    description: 'Message Color'
+    required: false
+  body:
+    description: 'Message Body'
+    required: true
+  webhook:
+    description: 'Microsoft Teams Webhook URL'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+branding:
+  icon: 'message-square'
+  color: 'purple'
