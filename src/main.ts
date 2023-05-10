@@ -13,8 +13,12 @@ async function main() {
     const webhook: string = getInput('webhook', { required: true });
     sendTeamsNotification(webhook, body, title, color);
   } catch (err) {
-    error('Sending a message to Microsoft Teams failed');
-    setFailed(err.message);
+    if (err instanceof Error) {
+      error('Sending a message to Microsoft Teams failed');
+      setFailed(err.message);
+    } else if (error !== undefined) {
+      setFailed(err?.toString() ?? 'Unknown error');
+    }
   }
 }
 
