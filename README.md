@@ -30,10 +30,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - name: Send Message
         id: send-message
-        uses: meisterplan/actions-msteams@v1
+        uses: meisterplan/actions-msteams@v2
         with:
           title: Hello # optional
           color: '#01A6F0' #optional
