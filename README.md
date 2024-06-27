@@ -15,7 +15,8 @@ Create a workflow `.yml` file in your repositories `.github/workflows` directory
 ### Inputs
 
 - `title` - Title of the message (optional)
-- `body` - Markddown body of the message
+- `body` - Markddown body of the message. Either `body` or `json-content` must be provided.
+- `json-content` - The message as JSON. Either `body` or `json-content` must be provided.
 - `webhook` - Webhook of the Team
 
 ### Example workflow

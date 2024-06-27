@@ -3,14 +3,16 @@ description: 'Send messages to Microsoft Teams'
 author: itdesign GmbH
 inputs:
   title:
-    description: 'Message Title'
+    description: 'Message Title. Does not work with json-content. Provide it ihn the JSON Object.'
     required: false
   color:
-    description: 'Message Color'
+    description: 'Message Color. Does not work with json-content. Provide it ihn the JSON Object.'
     required: false
   body:
-    description: 'Message Body'
-    required: true
+    description: 'Message Body. Either json-content or body must be provided.'
+    required: false
+  json-content:
+    description: 'The json content of the Teams message. Either json-content or body must be provided.'
   webhook:
     description: 'Microsoft Teams Webhook URL'
     required: true

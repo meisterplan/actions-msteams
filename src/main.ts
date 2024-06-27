@@ -9,9 +9,22 @@ async function main() {
     const color: string | undefined = getInput('color', {
       required: false,
     });
-    const body: string = getInput('body', { required: true });
+    const body: string | undefined = getInput('body', { required: false }) || undefined;
+    const jsonContent: string | undefined = getInput('json-content', { required: false }) || undefined;
     const webhook: string = getInput('webhook', { required: true });
-    sendTeamsNotification(webhook, body, title, color);
+    if (body) {
+      sendTeamsNotification(webhook, {
+        '@context': 'http://schema.org/extensions',
+        '@type': 'MessageCard',
+        title,
+        text: body,
+        themeColor: color,
+      });
+    } else if (jsonContent) {
+      sendTeamsNotification(webhook, jsonContent);
+    } else {
+      setFailed('Either body or json-content must be provided!');
+    }
   } catch (err) {
     if (err instanceof Error) {
       error('Sending a message to Microsoft Teams failed');
@@ -22,17 +35,10 @@ async function main() {
   }
 }
 
-async function sendTeamsNotification(webhook: string, body: string, title?: string, color?: string) {
-  const data = {
-    '@context': 'http://schema.org/extensions',
-    '@type': 'MessageCard',
-    title,
-    text: body,
-    themeColor: color,
-  };
+async function sendTeamsNotification(webhook: string, jsonContent: any) {
   request(webhook, {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: jsonContent,
   });
 }
 
