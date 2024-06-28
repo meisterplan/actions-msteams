@@ -31,9 +31,24 @@ function main() {
             const color = (0, core_1.getInput)('color', {
                 required: false,
             });
-            const body = (0, core_1.getInput)('body', { required: true });
+            const body = (0, core_1.getInput)('body', { required: false }) || undefined;
+            const jsonContent = (0, core_1.getInput)('json-content', { required: false }) || undefined;
             const webhook = (0, core_1.getInput)('webhook', { required: true });
-            sendTeamsNotification(webhook, body, title, color);
+            if (body) {
+                sendTeamsNotification(webhook, {
+                    '@context': 'http://schema.org/extensions',
+                    '@type': 'MessageCard',
+                    title,
+                    text: body,
+                    themeColor: color,
+                });
+            }
+            else if (jsonContent) {
+                sendTeamsNotification(webhook, jsonContent);
+            }
+            else {
+                (0, core_1.setFailed)('Either body or json-content must be provided!');
+            }
         }
         catch (err) {
             if (err instanceof Error) {
@@ -46,18 +61,11 @@ function main() {
         }
     });
 }
-function sendTeamsNotification(webhook, body, title, color) {
+function sendTeamsNotification(webhook, jsonContent) {
     return __awaiter(this, void 0, void 0, function* () {
-        const data = {
-            '@context': 'http://schema.org/extensions',
-            '@type': 'MessageCard',
-            title,
-            text: body,
-            themeColor: color,
-        };
         (0, request_1.default)(webhook, {
             method: 'POST',
-            body: JSON.stringify(data),
+            body: jsonContent,
         });
     });
 }
