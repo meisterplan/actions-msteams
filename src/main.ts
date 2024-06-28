@@ -13,13 +13,16 @@ async function main() {
     const jsonContent: string | undefined = getInput('json-content', { required: false }) || undefined;
     const webhook: string = getInput('webhook', { required: true });
     if (body) {
-      sendTeamsNotification(webhook, {
-        '@context': 'http://schema.org/extensions',
-        '@type': 'MessageCard',
-        title,
-        text: body,
-        themeColor: color,
-      });
+      sendTeamsNotification(
+        webhook,
+        JSON.stringify({
+          '@context': 'http://schema.org/extensions',
+          '@type': 'MessageCard',
+          title,
+          text: body,
+          themeColor: color,
+        }),
+      );
     } else if (jsonContent) {
       sendTeamsNotification(webhook, jsonContent);
     } else {

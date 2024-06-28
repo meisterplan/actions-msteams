@@ -35,13 +35,13 @@ function main() {
             const jsonContent = (0, core_1.getInput)('json-content', { required: false }) || undefined;
             const webhook = (0, core_1.getInput)('webhook', { required: true });
             if (body) {
-                sendTeamsNotification(webhook, {
+                sendTeamsNotification(webhook, JSON.stringify({
                     '@context': 'http://schema.org/extensions',
                     '@type': 'MessageCard',
                     title,
                     text: body,
                     themeColor: color,
-                });
+                }));
             }
             else if (jsonContent) {
                 sendTeamsNotification(webhook, jsonContent);
